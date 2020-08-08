@@ -1,14 +1,8 @@
 # # create files for your ruby classes in this directory
-
-
-# # nyc_apt = Listing.new("Nunny")
-# # puts nyc_apt.guests
-
 require 'pry'
 
-
+####################LISTING CLASS ####################################################################################################
 class Listing
-
     @@all = []
     attr_accessor :listing_name
 
@@ -17,43 +11,35 @@ class Listing
             @@all << self
         end
 
-
         def self.all
             @@all
         end
 
-       
         def trips
             #Use enumerable to loop through Trips
             #Trip.all is our class variable that holds all the trips
             #We want all the trips that match self. 
             Trip.all.select do |trip_info|
                 trip_info.listing == self 
-                #binding.pry
                 
             end    
-
         end
 
 
         def guests 
             self.trips.map do |trip_param|
                 trip_param.guest.name
-                #binding.pry
             end
         end
 
         def trip_count
             visited = trips.count
-            # binding.pry
-
         end
 
         def self.find_all_by_city(string)
             #using SELECT to iterate through Trip.all class variable
             Trip.all.select { |city_listing|
                 city_listing.listing.listing_name == city_listing
-               # binding.pry
             }
 
         end
@@ -62,23 +48,14 @@ class Listing
             #iterate through Trip.all
             #It should count which Listing is the most popular
             #Return the listing
-
-          #  counting = Trip.all 
-
-
             @@all.max_by { |listing_winner|
                 listing_winner.trip_count
-                   # binding.pry
             }
         end
 
 end
 
-Listing.most_popular
-
-
-
-
+####################TRIP CLASS ####################################################################################################
 class Trip
 
     @@all = []
@@ -100,7 +77,7 @@ class Trip
     end
 end
 
-
+####################GUEST CLASS ####################################################################################################
 class Guest
 
     @@all = []
@@ -119,20 +96,14 @@ class Guest
     def listings
         self.trips.map { |trip_info|
             trip_info.listing
-            #binding.pry
         }
-
     end
-
 
     def trips
        
         Trip.all.select do |trip_info|
             trip_info.guest == self 
-            #binding.pry
-            
         end    
-
     end
 
 
@@ -142,15 +113,9 @@ class Guest
     end 
 
     def self.pro_traveller
-
         self.all.select { |trip_info|
-
         trip_info.trip_count > 1
-    
-    
-    }
-
-
+        }
     end 
 
     def self.find_all_by_name(string)
@@ -160,25 +125,16 @@ class Guest
             guest_name.guest.name == string
            #binding.pry
         }
-
     end
-    
-
-
 end
 
-
-
-# south_america = Guest.new("Daisy")
+##############################################SEED DATA##############################################################################
 
 listing_inst_one = Listing.new("NYC")
 listing_inst_two = Listing.new("South America")
 listing_inst_three = Listing.new("Jamaica")
 listing_inst_four = Listing.new("Barbados")
 listing_inst_five = Listing.new("India")
-#listing_inst_six = Listing.new("South America")
-
-
 
 guest_inst_one = Guest.new("Shema")
 guest_inst_two = Guest.new("Hortencia")
@@ -187,8 +143,6 @@ guest_inst_four = Guest.new("Patrick")
 guest_inst_five = Guest.new("Emmanuel")
 guest_inst_six = Guest.new("Nunny")
 
-
-
 trip_test_one = Trip.new(listing_inst_one, guest_inst_one)
 trip_test_two = Trip.new(listing_inst_two, guest_inst_two)
 trip_test_three = Trip.new(listing_inst_three, guest_inst_three)
@@ -196,24 +150,11 @@ trip_test_four = Trip.new(listing_inst_four, guest_inst_four)
 trip_test_five = Trip.new(listing_inst_five, guest_inst_five)
 trip_test_six = Trip.new(listing_inst_two, guest_inst_six)
 trip_test_seven = Trip.new(listing_inst_one, guest_inst_six)
-trip_test_eleven = Trip.new(listing_inst_three, guest_inst_six)
-trip_test_ten = Trip.new(listing_inst_five, guest_inst_six)
 trip_test_eight = Trip.new(listing_inst_one, guest_inst_five)
 trip_test_nine = Trip.new(listing_inst_four, guest_inst_two)
+trip_test_ten = Trip.new(listing_inst_five, guest_inst_six)
+trip_test_eleven = Trip.new(listing_inst_three, guest_inst_six)
 
-
-
-
-
-# listing_inst.guests
-#binding.pry
-
- #nyc_apt = Listing.new("Nunny")
-#listing_inst_two.trips
-Listing.find_all_by_city("South America")
-Listing.most_popular
-
-guest_inst_six.listings
  binding.pry
 
 
